@@ -4,10 +4,10 @@
 
 //====VARIABLES===============
 //2. CREATE NECESSARY VARIABLES
-		// Correct user name
-		// Correct password
-		// user name input
-		// password input
+// Correct user name
+// Correct password
+// user name input
+// password input
 var username = "dart";
 var password = "vader";
 
@@ -32,7 +32,7 @@ if (inputUsername === username && inputPassword === password) {
 }
 
 //9. IF THEY DON'T MATCH, POPUP INVALID MESSAGE & OUTPUT TO CONSOLE
-else{
+else {
   alert("Invalid username/password");
   console.log("Login Fail");
 }
