@@ -32,7 +32,7 @@ if (inputUsername === username && inputPassword === password) {
 }
 
 //9. IF THEY DON'T MATCH, POPUP INVALID MESSAGE & OUTPUT TO CONSOLE
-else if (inputUsername !== username || inputPassword !== password) {
+else{
   alert("Invalid username/password");
   console.log("Login Fail");
 }
