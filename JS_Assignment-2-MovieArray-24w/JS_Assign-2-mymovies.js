@@ -13,10 +13,12 @@ var topMovies = [movie6, movie1, movie3, movie4, movie7, movie5, movie2];
 // variable for valid user input
 var isValidInput = false;
 
+var userInput = parseInt(prompt("Which top 7 movie would you like?","Pick a number: 1-7"));
+
 // While Loop to repeatedly ask the user for input until it's valid
 while (!isValidInput) {
-    // Ask the user to pick a movie
-    var userInput = parseInt(prompt("Which top 7 movie would you like?","Pick a number: 1-7"));
+    //Ask the user to pick a movie
+    userInput = parseInt(prompt("Which top 7 movie would you like?","Pick a number: 1-7"));
 
     // Check if the input is a valid number between 1 and 7
     if (!isNaN(userInput) && userInput >= 1 && userInput <= 7 && userInput !==null) {
