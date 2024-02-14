@@ -24,7 +24,7 @@ function onPageLoad(){
 	//FUNCTION TO CHANGE buttonBox
 	function handleBoxClick() {
 		buttonBox.style.width = "600px";
-		buttonBox.innerHTML = "SURPRISE!!";
+		buttonBox.innerHTML = "<h2>SURPRISE!!</h2>";
 		buttonBox.style.backgroundColor = "orange";
 	}
 	
