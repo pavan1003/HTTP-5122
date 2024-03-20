@@ -8,13 +8,14 @@ var userInfo = {
 };
 window.onload = function () {
   //Required Variables
-  var headerElement = document.getElementById("welcome");
+  var headerSection = document.getElementById("welcome");
+  var formSection = document.getElementById("form");
   var formHandle = document.forms.ixdForm;
-  var resultElement = document.getElementById("result");
+  var resultSection = document.getElementById("result");
   var fNameResult = document.getElementById("result__Fname");
   var lNameResult = document.getElementById("result__Lname");
   var idResult = document.getElementById("result__id");
-  var humberIdRegEx = /(n|N)\d{8}/;
+  var humberIdRegEx = /(n|N)\d{8}$/;
   var programResult = document.getElementById("result__program");
   var projectResult = document.getElementById("result__project");
   var projectCaption = document.getElementById("caption_project");
@@ -23,6 +24,9 @@ window.onload = function () {
   userInfo.id = formHandle.f__id;
   userInfo.program = formHandle.f__program;
   userInfo.project = formHandle.f__project;
+
+  //Listeners
+  formHandle.onsubmit = processForm;
 
   //Functions
   function processForm() {
@@ -36,7 +40,7 @@ window.onload = function () {
       userInfo.lName.focus();
       return false;
     }
-    console.log(!humberIdRegEx.test(userInfo.id.value));
+
     if (userInfo.id.value === "" || !humberIdRegEx.test(userInfo.id.value)) {
       userInfo.id.style.background = "red";
       userInfo.id.focus();
@@ -48,27 +52,21 @@ window.onload = function () {
       userInfo.program.focus();
       return false;
     }
-    userInfo.program.onchange = goProgramDD();
-    function goProgramDD() {
-      userInfo.program = formHandle.f__program;
-    }
 
     if (userInfo.project.value === "") {
       projectCaption.style.background = "red";
       return false;
     }
 
-    headerElement.style.display = "none";
-    formHandle.style.display = "none";
-    resultElement.style.display = "block";
+    headerSection.style.display = "none";
+    formSection.style.display = "none";
+    resultSection.style.display = "block";
     fNameResult.innerHTML = userInfo.fName.value;
     lNameResult.innerHTML = userInfo.lName.value;
     idResult.innerHTML = userInfo.id.value;
     programResult.innerHTML = userInfo.program.options[userInfo.program.selectedIndex].text;
     projectResult.innerHTML = userInfo.project.value;
+
     return false;
   }
-
-  //Listeners
-  formHandle.onsubmit = processForm;
 };
