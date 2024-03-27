@@ -16,11 +16,7 @@ jQuery(window).on("load", function () {
   $("#h24").on("click", function () { toggleParagraph(this, ".contentBox"); });
   //CHANGE <p> BACKGROUND ON HOVER
   $(".contentBox").hover(
-    function () {
-      $(".contentBox").toggleClass("textHovered");
-    },
-    function () {
-      $(".contentBox").toggleClass("textHovered");
-    }
+    function () { $(".contentBox").toggleClass("textHovered"); },
+    function () { $(".contentBox").toggleClass("textHovered"); }
   );
 });
