@@ -47,11 +47,11 @@ window.onload = function () {
 
                     // Parse the JSON response
                     var DATA = xhr.response;
-
+                                    
                     // Output Data to DOM
                     output.style.display = "block";
                     out_location.innerHTML = DATA.name;
-                    out_icon.innerHTML = '<img src="http://openweathermap.org/img/w/' + DATA.weather[0].icon + '.png"/>';
+                    out_icon.innerHTML = '<img src="https://openweathermap.org/img/w/' + DATA.weather[0].icon + '.png"/>';
                     out_temperature.innerHTML = Math.round(DATA.main.temp) + "&degC";
                     conditions = DATA.weather[0].description;
                     out_conditions.innerHTML = conditions.charAt(0).toUpperCase() + conditions.slice(1) + ".";

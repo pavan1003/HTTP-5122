@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TiffinMate</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./script.js"></script>
 </head>
+
 <body>
   <div class="container">
     <h1>TiffinMate</h1>
     <label for="tiffins">Number of Tiffins:</label>
-    <input type="number" id="tiffins" min="1">
-    
-    <h2>Select Items:</h2>
+    <input type="number" id="tiffins">
     <div id="items">
-      <!-- Items will be dynamically added here -->
+      <div class="item">
+        <label for="item1">Item 1:</label>
+        <input type="text" id="item1" placeholder="Item Name">
+        <input type="number" id="quantity1" placeholder="Quantity">
+      </div>
+
     </div>
-    
-    <button onclick="calculateIngredients()">Calculate Ingredients</button>
-    
-    <h2>Ingredients Summary:</h2>
-    <ul id="ingredients-summary">
-      <!-- Ingredients summary will be displayed here -->
-    </ul>
+    <button onclick="calculate()">Calculate</button>
+    <div id="output"></div>
   </div>
-  
-  <script src="script.js"></script>
 </body>
+
 </html>
