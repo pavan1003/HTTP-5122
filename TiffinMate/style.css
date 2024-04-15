@@ -3,9 +3,46 @@ body {
 }
 
 .container {
-  max-width: 500px;
+  max-width: 650px;
   margin: 0 auto;
   padding: 20px;
+}
+
+#heading {
+  display: flex;
+  justify-content: center;
+}
+
+#tiffin-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 10px 0;
+  align-items: center;
+}
+
+.form-input .form-label{
+  width: 280px;
+}
+
+.form-input select {
+  height: fit-content;
+  width: 100px;
+}
+
+.form-input .radio-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form-input .input-box {
+  width: 100px;
+  align-self: flex-end;
 }
 
 .item {
@@ -13,14 +50,35 @@ body {
 }
 
 button {
-  margin-top: 10px;
+  margin: 10px auto;
   padding: 8px 16px;
   background-color: #4CAF50;
   color: white;
   border: none;
   cursor: pointer;
+  width: 100px;
 }
 
 button:hover {
   background-color: #45a049;
+}
+
+#output {
+  display: none;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #output, #output * {
+    visibility: visible;
+  }
+
+  #output {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
 }

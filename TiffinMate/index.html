@@ -11,19 +11,23 @@
 
 <body>
   <div class="container">
-    <h1>TiffinMate</h1>
-    <label for="tiffins">Number of Tiffins:</label>
-    <input type="number" id="tiffins">
-    <div id="items">
-      <div class="item">
-        <label for="item1">Item 1:</label>
-        <input type="text" id="item1" placeholder="Item Name">
-        <input type="number" id="quantity1" placeholder="Quantity">
+    <h1 id="heading">TiffinMate</h1>
+    <div id="tiffin-form">
+      <div class="form-input">
+        <label class="form-label" for="tiffins">Number of Tiffins to prepare:</label>
+        <input class="input-box" type="number" id="tiffins">
       </div>
-
+      <div class="form-input">
+        <label class="form-label" for="tiffinItems">Number of Items to be given per Tiffin:</label>
+        <input class="input-box" type="number" id="tiffinItems">
+      </div>
+      <button class="btn-add-items" onclick="addItems()">Add Items</button>
+      <div class="form-input-group" id="items"></div>
+      <button class="btn-calculate" onclick="calculate()">Calculate</button>
+      <div id="output">
+      </div>
+      <button class="btn-export" onclick="exportReport()">Export</button>
     </div>
-    <button onclick="calculate()">Calculate</button>
-    <div id="output"></div>
   </div>
 </body>
 
