@@ -1,27 +1,38 @@
 <!DOCTYPE HTML>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<title>SVG Lab</title>
+	<script src="./Lab-12-svg.js"></script>
 </head>
 
 <body id="svgBody">
 
-<div id="svgDiv">
+	<div id="svgDiv">
 
-	<svg width="300" height="300"  xmlns="http://www.w3.org/2000/svg" version="1.1">
-	<!--ALL OF YOUR SVG ELEMENTS GO HERE INSIDE THE <svg PARENT ELEMENT.-->
-		
-		
-<!--UNCOMMENT THE LINES BELOW TO SEE HOW I USED THE <pattern> SVG ELEMENT WITH A SQUARE TO CREATE A 10px by 10px GRID OVERLAY TO MAKE LOCATING COORDINATES EASIER WHILE I CREATED THE GRAPHIC.
-	<pattern id="dotGrid" patternUnits="userSpaceOnUse" x="0" y="0" width="10" height="10"  >
-		<rect width="10" height="10" stroke="black" fill="none" />
-	</pattern>
-	<rect width="300" height="300" fill="url(#dotGrid)" />
--->
-
-	</svg>
-
-</div>
+		<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<!--ALL OF YOUR SVG ELEMENTS GO HERE INSIDE THE <svg PARENT ELEMENT.-->
+			<rect width="300" height="200" fill="lightblue" />
+			<circle id="c1" cx="25" cy="25" r="20" stroke="orange" stroke-width="2" fill="yellow" />
+			<rect y="200" width="300" height="100" fill="lightgreen" />
+			<g id="cloud">
+				<circle id="c2" cx="30" cy="75" r="8" fill="white">
+				</circle>
+				<circle id="c3" cx="45" cy="70" r="15" fill="white">
+				</circle>
+				<circle id="c4" cx="60" cy="75" r="10" fill="white">
+				</circle>
+				<animateMotion path="M0,0 q60,100 100,0 q60,-20 100,0" begin="0s" dur="10s" repeatCount="indefinite" />
+			</g>
+			<!-- UNCOMMENT THE LINES BELOW TO SEE HOW I USED THE <pattern> SVG ELEMENT WITH A SQUARE TO CREATE A 10px by 10px GRID OVERLAY TO MAKE LOCATING COORDINATES EASIER WHILE I CREATED THE GRAPHIC. -->
+			<pattern id="dotGrid" patternUnits="userSpaceOnUse" x="0" y="0" width="10" height="10">
+				<rect width="10" height="10" stroke="black" fill="none" />
+			</pattern>
+			<rect width="300" height="300" fill="url(#dotGrid)" />
+		</svg>
+	</div>
+	<button id="show-hide-btn">Show/Hide</button>
 </body>
+
 </html>

@@ -10,6 +10,8 @@ var indianTiffinItems = [
   "Idli (steamed rice cake)",
 ];
 window.onload = function () {
+  //listeners
+
   function addItems() {
     //Varibales
     var tiffinsInput = document.getElementById('tiffins');
@@ -50,7 +52,7 @@ window.onload = function () {
     }
 
     itemsContainer.innerHTML = '';
-    
+
 
     for (var i = 1; i <= tiffinItems; i++) {
       var optionsHTML = '';
