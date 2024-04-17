@@ -1,4 +1,4 @@
-const indianTiffinItems = [
+var indianTiffinItems = [
   "Roti (Indian flatbread)",
   "Tomato Sabzi (vegetable curry)",
   "Dal (lentil curry)",
@@ -9,23 +9,55 @@ const indianTiffinItems = [
   "Sambar (South Indian lentil soup)",
   "Idli (steamed rice cake)",
 ];
+window.onload = function () {
+  function addItems() {
+    //Varibales
+    var tiffinsInput = document.getElementById('tiffins');
+    var tiffinItemsInput = document.getElementById('tiffinItems');
+    var errorMessageTiffins = document.getElementById('error-tiffins');
+    var errorMessageItems = document.getElementById('error-items');
+    var tiffins = parseInt(tiffinsInput.value);
+    var tiffinItems = parseInt(tiffinItemsInput.value);
+    var itemsContainer = document.getElementById('items');
+    var itemsHTML = '';
+    var btnCalculate = document.getElementById("btn-calculate");
 
-function addItems() {
-  const tiffinItems = parseInt(document.getElementById('tiffinItems').value);
-  const itemsContainer = document.getElementById('items');
+    // Reset previous error messages and background validation colors
+    errorMessageTiffins.innerHTML = '';
+    errorMessageItems.innerHTML = '';
+    tiffinsInput.style.backgroundColor = '';
+    tiffinItemsInput.style.backgroundColor = '';
 
-  // Clear previous items
-  itemsContainer.innerHTML = '';
 
-  // Create input fields for each item per tiffin
-  let itemsHTML = '';
+    // Validate if number of tiffins is a positive integer
+    if (isNaN(tiffins) || tiffins <= 0 || !Number.isInteger(tiffins)) {
+      // Display error message
+      errorMessageTiffins.innerHTML = "Please enter a valid positive integer for the number of tiffins.";
+      errorMessageTiffins.classList.add('error-message');
+      // Change background color to red
+      tiffinsInput.style.backgroundColor = 'red';
+      return;
+    }
 
-  for (let i = 1; i <= tiffinItems; i++) {
-    let optionsHTML = '';
-    indianTiffinItems.forEach(item => {
-      optionsHTML += `<option value="${item}">${item}</option>`;
-    });
-    itemsHTML += `
+    // Validate if tiffinItems is a positive integer
+    if (isNaN(tiffinItems) || tiffinItems <= 0 || !Number.isInteger(tiffinItems)) {
+      // Display error message
+      errorMessageItems.innerHTML = "Please enter a valid positive integer for the number of items.";
+      errorMessageItems.classList.add('error-message');
+      // Change background color to red
+      tiffinItemsInput.style.backgroundColor = 'red';
+      return;
+    }
+
+    itemsContainer.innerHTML = '';
+    
+
+    for (var i = 1; i <= tiffinItems; i++) {
+      var optionsHTML = '';
+      indianTiffinItems.forEach(item => {
+        optionsHTML += `<option value="${item}">${item}</option>`;
+      });
+      itemsHTML += `
       <div class="item form-input">
         <label for="item${i}">Item ${i}:</label>
         <select id="item${i}">
@@ -53,216 +85,134 @@ function addItems() {
         </div>
       </div>
     `;
-  }
-
-  // Append the generated HTML to the itemsContainer
-  itemsContainer.innerHTML = itemsHTML;
-
-  // Add event listeners to toggle display of quantity input
-  for (let i = 1; i <= tiffinItems; i++) {
-    const containerRadio = document.getElementById(`container${i}`);
-    const containers = document.getElementById(`containers${i}`);
-    const quantityRadio = document.getElementById(`quantityRadio${i}`);
-    const valueInput = document.getElementById(`quantityValue${i}`);
-
-    containerRadio.addEventListener('change', function () {
-      valueInput.style.display = 'none';
-      containers.style.display = 'inline-block';
-    });
-
-    quantityRadio.addEventListener('change', function () {
-      containers.style.display = 'none';
-      valueInput.style.display = 'inline-block';
-    });
-  }
-}
-
-function calculate() {
-  const tiffins = parseInt(document.getElementById('tiffins').value);
-  const tiffinItems = parseInt(document.getElementById('tiffinItems').value);
-  const report = document.getElementById('output');
-  let output = '<h1>TiffinMate Report</h1>';
-  let totalIngredients = {}; // Object to store total amount of each ingredient
-  let totalItemsQuantity = {}; // Object to store total quantity of each item
-  // Mapping between item names and their ingredient lists with amounts for different container sizes
-  const itemIngredientsMap = {
-    "Roti (Indian flatbread)": {
-      "12": [
-        { ingredient: "Flour", amount: "200g" },
-        { ingredient: "Water", amount: "100ml" },
-        { ingredient: "Salt", amount: "5g" }
-      ],
-      "8": [
-        { ingredient: "Flour", amount: "150g" },
-        { ingredient: "Water", amount: "75ml" },
-        { ingredient: "Salt", amount: "3g" }
-      ]
-    },
-    "Tomato Sabzi (vegetable curry)": {
-      "12": [
-        { ingredient: "Tomatoes", amount: "500g" },
-        { ingredient: "Onions", amount: "200g" },
-        { ingredient: "Spices", amount: "10g" }
-      ],
-      "8": [
-        { ingredient: "Tomatoes", amount: "300g" },
-        { ingredient: "Onions", amount: "150g" },
-        { ingredient: "Spices", amount: "5g" }
-      ]
-    },
-    "Dal (lentil curry)": {
-      "12": [
-        { ingredient: "Lentils", amount: "300g" },
-        { ingredient: "Spices", amount: "10g" },
-        { ingredient: "Tomatoes", amount: "200g" }
-      ],
-      "8": [
-        { ingredient: "Lentils", amount: "200g" },
-        { ingredient: "Spices", amount: "5g" },
-        { ingredient: "Tomatoes", amount: "100g" }
-      ]
-    },
-    "Rice": {
-      "12": [
-        { ingredient: "Rice", amount: "400g" },
-        { ingredient: "Water", amount: "800ml" }
-      ],
-      "8": [
-        { ingredient: "Rice", amount: "250g" },
-        { ingredient: "Water", amount: "500ml" }
-      ]
-    },
-    "Pickles": {
-      "12": [
-        { ingredient: "Vegetables", amount: "300g" },
-        { ingredient: "Spices", amount: "20g" },
-        { ingredient: "Oil", amount: "50ml" }
-      ],
-      "8": [
-        { ingredient: "Vegetables", amount: "200g" },
-        { ingredient: "Spices", amount: "10g" },
-        { ingredient: "Oil", amount: "30ml" }
-      ]
-    },
-    "Salad": {
-      "12": [
-        { ingredient: "Lettuce", amount: "200g" },
-        { ingredient: "Tomatoes", amount: "150g" },
-        { ingredient: "Cucumbers", amount: "150g" }
-      ],
-      "8": [
-        { ingredient: "Lettuce", amount: "100g" },
-        { ingredient: "Tomatoes", amount: "75g" },
-        { ingredient: "Cucumbers", amount: "75g" }
-      ]
-    },
-    "Raita (yogurt side dish)": {
-      "12": [
-        { ingredient: "Yogurt", amount: "300g" },
-        { ingredient: "Cucumbers", amount: "150g" },
-        { ingredient: "Spices", amount: "10g" }
-      ],
-      "8": [
-        { ingredient: "Yogurt", amount: "200g" },
-        { ingredient: "Cucumbers", amount: "100g" },
-        { ingredient: "Spices", amount: "5g" }
-      ]
-    },
-    "Sambar (South Indian lentil soup)": {
-      "12": [
-        { ingredient: "Lentils", amount: "400g" },
-        { ingredient: "Vegetables", amount: "300g" },
-        { ingredient: "Tamarind", amount: "30g" },
-        { ingredient: "Spices", amount: "15g" }
-      ],
-      "8": [
-        { ingredient: "Lentils", amount: "250g" },
-        { ingredient: "Vegetables", amount: "150g" },
-        { ingredient: "Tamarind", amount: "20g" },
-        { ingredient: "Spices", amount: "10g" }
-      ]
-    },
-    "Idli (steamed rice cake)": {
-      "12": [
-        { ingredient: "Rice", amount: "200g" },
-        { ingredient: "Lentils", amount: "100g" },
-        { ingredient: "Salt", amount: "5g" }
-      ],
-      "8": [
-        { ingredient: "Rice", amount: "150g" },
-        { ingredient: "Lentils", amount: "75g" },
-        { ingredient: "Salt", amount: "3g" }
-      ]
     }
-  };
 
-  // Iterate over each selected item and display its ingredient list
-  for (let i = 1; i <= tiffinItems; i++) {
-    const itemName = document.getElementById(`item${i}`).value;
-    console.log("ItemName: ", itemName);
-    const isContainerSelected = document.getElementById(`container${i}`).checked;
-    const isQuantitySelected = document.getElementById(`quantityRadio${i}`).checked;
+    // Append the generated HTML to the itemsContainer
+    itemsContainer.innerHTML = itemsHTML;
 
-    if (itemName) {
-      output += `<p>Item ${i}: ${itemName}</p>`;
+    btnCalculate.style.display = "block";
 
-      // If quantity is selected, calculate total quantity
-      if (isQuantitySelected) {
-        const quantityInput = document.getElementById(`quantityValue${i}`).value;
-        const totalQuantity = parseFloat(quantityInput) * tiffins;
-        output += `<p>Total Quantity: ${totalQuantity}</p>`;
-        // Update totalItemsQuantity object
-        totalItemsQuantity[itemName] = (totalItemsQuantity[itemName] || 0) + totalQuantity;
-      }
+    // Add event listeners to toggle display of quantity input
+    for (var i = 1; i <= tiffinItems; i++) {
+      var containerRadio = document.getElementById(`container${i}`);
+      var containers = document.getElementById(`containers${i}`);
+      var quantityRadio = document.getElementById(`quantityRadio${i}`);
+      var valueInput = document.getElementById(`quantityValue${i}`);
 
-      // If a container size is selected, display ingredients accordingly
-      if (isContainerSelected) {
-        const container12oz = document.getElementById(`12oz-Item${i}`);
-        const container8oz = document.getElementById(`8oz-Item${i}`);
-        const selectedContainer = container12oz.checked ? "12" : (container8oz.checked ? "8" : null);
-        console.log("selectedContainer: ", selectedContainer);
+      containerRadio.addEventListener('change', function () {
+        valueInput.style.display = 'none';
+        containers.style.display = 'inline-block';
+      });
+
+      quantityRadio.addEventListener('change', function () {
+        containers.style.display = 'none';
+        valueInput.style.display = 'inline-block';
+      });
+    }
+  }
+
+  function calculate() {
+    //Variables
+    var tiffins = parseInt(document.getElementById('tiffins').value);
+    var tiffinItems = parseInt(document.getElementById('tiffinItems').value);
+    var report = document.getElementById('output');
+    var output = '';
+    var totalIngredients = {};
+    var totalItemsQuantity = {};
+    var errorFlag = false; // Flag to check if there are any errors
+
+    // Iterate over each selected item and display its ingredient list
+    for (var i = 1; i <= tiffinItems; i++) {
+      var itemName = document.getElementById(`item${i}`).value;
+      var isContainerSelected = document.getElementById(`container${i}`).checked;
+      var isQuantitySelected = document.getElementById(`quantityRadio${i}`).checked;
+
+      if (!itemName) {
+        output += `<p class="error-message">Please select an item for Tiffin ${i}.</p>`;
+        errorFlag = true;
+      } else {
+
+        // If quantity is selected, calculate total quantity
+        if (isQuantitySelected) {
+          var quantityInput = document.getElementById(`quantityValue${i}`).value;
+          if (!quantityInput) {
+            output += `<p class="error-message">Please enter quantity for ${itemName} in Tiffin ${i}.</p>`;
+            errorFlag = true;
+          } else {
+            output = '<h1>TiffinMate Report</h1>'
+            output += `<p>Item ${i}: ${itemName}</p>`;
+            var totalQuantity = parseFloat(quantityInput) * tiffins;
+            output += `<p>Total Quantity: ${totalQuantity}</p>`;
+            // Update totalItemsQuantity object
+            totalItemsQuantity[itemName] = (totalItemsQuantity[itemName] || 0) + totalQuantity;
+          }
+        }
 
         // If a container size is selected, display ingredients accordingly
-        if (selectedContainer) {
-          output += `<ul>`;
-          // Add ingredients based on container size
-          const ingredientsForContainer = itemIngredientsMap[itemName][selectedContainer];
-          console.log(ingredientsForContainer);
-          ingredientsForContainer.forEach(({ ingredient, amount }) => {
-            output += `<li>${ingredient}: ${amount}</li>`;
-            // Update totalIngredients object
-            totalIngredients[ingredient] = (totalIngredients[ingredient] || 0) + parseFloat(amount);
-          });
-          output += `</ul>`;
+        else if (isContainerSelected) {
+          var container12oz = document.getElementById(`12oz-Item${i}`);
+          var container8oz = document.getElementById(`8oz-Item${i}`);
+          var selectedContainer = container12oz.checked ? "12" : (container8oz.checked ? "8" : null);
+
+          if (!selectedContainer) {
+            output += `<p class="error-message">Please select a container size for ${itemName} in Tiffin ${i}.</p>`;
+            errorFlag = true;
+          } else {
+            // Add ingredients based on container size
+            output = '<h1>TiffinMate Report</h1>'
+            output += `<p>Item ${i}: ${itemName}</p>`;
+            var ingredientsForContainer = itemIngredientsMap[itemName][selectedContainer];
+            output += `<ul>`;
+            ingredientsForContainer.forEach(({ ingredient, amount }) => {
+              output += `<li>${ingredient}: ${amount}</li>`;
+              // Update totalIngredients object
+              totalIngredients[ingredient] = (totalIngredients[ingredient] || 0) + parseFloat(amount);
+            });
+            output += `</ul>`;
+          }
+        }
+        else {
+          output += `<p class="error-message">Please select quantity or container size for ${itemName}.</p>`;
+          errorFlag = true;
         }
       }
     }
 
+    // Display error if any
+    if (errorFlag) {
+      report.style.display = "block";
+      report.innerHTML = output;
+      return; // Exit the function if there is an error
+    }
+
+    // Proceed with calculation only if there are no errors
+    // Display total quantity of each item
+    output += `<h2>Total Quantity of Each Item:</h2>`;
+    output += `<ul>`;
+    for (var item in totalItemsQuantity) {
+      var totalQuantity = totalItemsQuantity[item];
+      output += `<li>${item}: ${totalQuantity}</li>`;
+    }
+    output += `</ul>`;
+
+    // Calculate total amount of ingredients required for total number of tiffins
+    output += `<h2>Total Ingredients Required for ${tiffins} Tiffins:</h2>`;
+    output += `<ul>`;
+    for (var ingredient in totalIngredients) {
+      var totalAmount = totalIngredients[ingredient] * tiffins;
+      output += `<li>${ingredient}: ${totalAmount}g/ml</li>`;
+    }
+    output += `</ul>`;
+
+    // Display the report
+    report.style.display = "block";
+    report.innerHTML = output;
+
+    var btnExport = document.getElementById("btn-export");
+    btnExport.style.display = "block";
   }
 
-
-  // Display total quantity of each item
-  output += `<h2>Total Quantity of Each Item:</h2>`;
-  output += `<ul>`;
-  for (const item in totalItemsQuantity) {
-    const totalQuantity = totalItemsQuantity[item];
-    output += `<li>${item}: ${totalQuantity}</li>`;
+  function exportReport() {
+    window.print();
   }
-  output += `</ul>`;
-
-  // Calculate total amount of ingredients required for total number of tiffins
-  output += `<h2>Total Ingredients Required for ${tiffins} Tiffins:</h2>`;
-  output += `<ul>`;
-  for (const ingredient in totalIngredients) {
-    const totalAmount = totalIngredients[ingredient] * tiffins;
-    output += `<li>${ingredient}: ${totalAmount}g/ml</li>`;
-  }
-  output += `</ul>`;
-
-  report.style.display = "block";
-  report.innerHTML = output;
-}
-
-function exportReport() {
-  window.print();
 }

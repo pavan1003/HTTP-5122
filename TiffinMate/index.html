@@ -13,20 +13,26 @@
   <div class="container">
     <h1 id="heading">TiffinMate</h1>
     <div id="tiffin-form">
-      <div class="form-input">
-        <label class="form-label" for="tiffins">Number of Tiffins to prepare:</label>
-        <input class="input-box" type="number" id="tiffins">
+      <div class="input-group">
+        <div class="form-input">
+          <label class="form-label" for="tiffins">Number of Tiffins to prepare:</label>
+          <input class="input-box" type="number" id="tiffins">
+        </div>
+        <span id="error-tiffins"></span>
       </div>
-      <div class="form-input">
-        <label class="form-label" for="tiffinItems">Number of Items to be given per Tiffin:</label>
-        <input class="input-box" type="number" id="tiffinItems">
+      <div class="input-group">
+        <div class="form-input">
+          <label class="form-label" for="tiffinItems">Number of Items to be given per Tiffin:</label>
+          <input class="input-box" type="number" id="tiffinItems">
+        </div>
+        <span id="error-items"></span>
       </div>
       <button class="btn-add-items" onclick="addItems()">Add Items</button>
       <div class="form-input-group" id="items"></div>
-      <button class="btn-calculate" onclick="calculate()">Calculate</button>
-      <div id="output">
+      <button id="btn-calculate" class="hidden" onclick="calculate()">Calculate</button>
+      <div id="output" class="hidden">
       </div>
-      <button class="btn-export" onclick="exportReport()">Export</button>
+      <button id="btn-export" class="hidden" onclick="exportReport()">Export</button>
     </div>
   </div>
 </body>

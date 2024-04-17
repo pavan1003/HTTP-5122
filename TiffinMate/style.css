@@ -22,10 +22,10 @@ body {
   display: flex;
   justify-content: center;
   margin: 0 0 10px 0;
-  align-items: center;
+  /* align-items: center; */
 }
 
-.form-input .form-label{
+.form-input .form-label {
   width: 280px;
 }
 
@@ -45,9 +45,21 @@ body {
   align-self: flex-end;
 }
 
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
 .item {
   margin-bottom: 10px;
 }
+
+.error-message {
+  color: red;
+  font-size: 0.8em;
+  margin: 10px auto;
+}
+
 
 button {
   margin: 10px auto;
@@ -63,7 +75,7 @@ button:hover {
   background-color: #45a049;
 }
 
-#output {
+.hidden {
   display: none;
 }
 
