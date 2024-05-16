@@ -8,9 +8,9 @@ window.onload = function () {
   var conditions = "";
 
   //API Key
-  var mySecureAPIKey = "8745cc0dae3abff69d73189d115c8c2c";
+  var mySecureAPIKey = "MY_OPENWEATHERMAP_API_KEY";
   // var mySecureAPIKey = "";
-
+console.log(mySecureAPIKey);
   //API URL
   var APIurl =
     "https://api.openweathermap.org/data/2.5/weather?q=Toronto&units=metric&appid=" +
